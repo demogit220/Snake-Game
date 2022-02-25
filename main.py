@@ -12,7 +12,7 @@ screen.tracer(0)  # it just tell the program to turn off the automatic updates.
 # if turn this off, we have to call update explicitly when we want to update the screen
 snake = Snake()
 food = Food()  # food is also turtle object
-scores = ScoreBoard()
+scores = ScoreBoard(screen)
 
 screen.listen()
 screen.onkey(snake.up, "Up")
@@ -35,14 +35,14 @@ while game_is_on:
 
     # Detect collision with wall
     if snake.head.xcor() > 280 or snake.head.xcor() < -280 or snake.head.ycor() > 280 or snake.head.ycor() < -280:
-        game_is_on = False
-        scores.game_over()
+        scores.Reset()
+        snake.reset()
 
     # Detect collision with tail
     # If head collides with any segment, trigger game over.
     for segment in snake.segments[1:]:  # Python slicing
         if snake.head.distance(segment) < 10:
-            game_is_on = False
-            scores.game_over()
+           scores.Reset()
+           snake.reset()
 
 screen.exitonclick()

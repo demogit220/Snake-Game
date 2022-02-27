@@ -8,7 +8,11 @@ class ScoreBoard(Turtle):
         self.score = 0
         self.user_name = screen.textinput(title="Name", prompt="What's your name:  ")
         with open("data.txt") as data:
-            self.high_score=int(data.read())
+            for line in data:
+                for word in line:
+                    if word.isdigit():
+                        self.high_score = int(word)
+                        break
         self.color("white")
         self.penup()
         self.goto(0, 270)
